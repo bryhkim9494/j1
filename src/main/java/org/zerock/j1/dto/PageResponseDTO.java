@@ -6,6 +6,6 @@ import lombok.Data;
 
 @Data
 public class PageResponseDTO<E> {
-    
+
     private List<E> dtoList;
 }

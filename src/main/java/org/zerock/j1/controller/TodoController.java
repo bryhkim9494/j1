@@ -20,7 +20,8 @@ import lombok.extern.log4j.Log4j2;
 @Log4j2
 public class TodoController {
     // CORS -> AJAX통신할때 발생할수있는 문제
-    // CORS 는 중요함
+    // CORS는 면접에서 물어볼정도로 중요함
+    
     private final TodoService todoService;
 
     @GetMapping("/list")

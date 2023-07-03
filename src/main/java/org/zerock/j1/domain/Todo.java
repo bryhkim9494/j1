@@ -20,7 +20,9 @@ import lombok.ToString;
 @ToString
 @Getter // @Data말고 @Getter을 씀 -> 가능하면 @Setter쓰지않는다.
 public class Todo {
+
     // jpa면접문제: dirtyread
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Auto_Increment라는뜻
     private Long tno;
