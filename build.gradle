@@ -1,3 +1,9 @@
+buildscript {
+    ext {
+        queryDslVersion = "5.0.0"
+    }
+}
+
 plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.1.1'
@@ -34,8 +40,34 @@ dependencies {
 	// https://mvnrepository.com/artifact/org.modelmapper/modelmapper
 	implementation 'org.modelmapper:modelmapper:3.1.1'
 
+	implementation "com.querydsl:querydsl-jpa:${queryDslVersion}:jakarta"
+
+    annotationProcessor(
+
+            "jakarta.persistence:jakarta.persistence-api",
+
+            "jakarta.annotation:jakarta.annotation-api",
+
+            "com.querydsl:querydsl-apt:${queryDslVersion}:jakarta")
+
+
+
 }
 
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ["$projectDir/src/main/java", 
+			"$projectDir/build/generated/sources/annotationProcessor/java/main"] // Q도메인 만들어지는 경로를 뜻함
+        }
+    }
+}
+
+
+
+// compileJava.dependsOn('clean') // 스프링부트 2버전에서는 사용불가
+// complieTestJava.dependsOn('clean')

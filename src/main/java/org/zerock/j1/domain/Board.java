@@ -13,21 +13,27 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Entity
-@Table(name = "tbl_todo2") // 여기에 인덱스도 자동으로 잡게 해줄수있음
+@Table(name = "t_board")
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
 @ToString
-@Getter // @Data말고 @Getter을 씀 -> 가능하면 @Setter쓰지않는다.
-public class Todo {
-
-    // jpa면접문제: dirtyread
-
+public class Board extends BaseEntity {
+    
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // @GeneratedValue(strategy = GenerationType.IDENTITY) => Auto_Increment라는뜻
-    private Long tno;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long bno;
 
-    @Column(length = 300, nullable = false)
+    @Column(length = 200, nullable = false)
     private String title;
 
+    @Column(length = 1000, nullable = false)
+    private String content;
+
+    @Column(length = 50, nullable = false)
+    private String writer;
+    public void changeTitle(String title) {
+        this.title = title;
+    }
 }

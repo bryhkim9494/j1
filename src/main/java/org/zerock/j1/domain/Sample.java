@@ -40,4 +40,7 @@ public class Sample {
     private String first;
     private String last; // 컬럼이름은 데이터베이스 예약어에 중복되지 않는지 신경써서 만들어야함
 
+    private String addr;
+    private String zipCode;
+    private String city;
 }
