@@ -30,4 +30,8 @@ public class Todo {
     @Column(length = 300, nullable = false)
     private String title;
 
+    public void changeTitle(String title) {
+        this.title=title;
+    }
+
 }
