@@ -8,4 +8,5 @@ import org.zerock.j1.domain.Board;
 
 public interface BoardSearch {
     Page<Board> search1(String searchType, String keyword, Pageable pageable); // 1. 인터페이스 메소드추가
+    Page<Object[]> searchWithRcnt(String searchType, String keyword, Pageable pageable);
 }
