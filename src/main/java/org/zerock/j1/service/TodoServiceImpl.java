@@ -38,11 +38,10 @@ public class TodoServiceImpl implements TodoService {
                 .collect(Collectors.toList());
         // 위에 코드를 해석하면 todo를 dto로 바꾼다음에 list로 만들라는 코드임
 
-        PageResponseDTO<TodoDTO> response = new PageResponseDTO<>();
-
-        response.setDtoList(dtoList);
-
-        return response;
+        // PageResponseDTO<TodoDTO> response = new PageResponseDTO<>();
+        // response.setDtoList(dtoList);
+        // return response;
+        return null;
     }
 
     @Override
@@ -71,11 +70,11 @@ public class TodoServiceImpl implements TodoService {
     @Override
     public void modify(TodoDTO dto) {
         Optional<Todo> result = todoRepository.findById(dto.getTno());
-        
+
         Todo todo = result.orElseThrow();
-        
+
         todo.changeTitle(dto.getTitle());
-        
+
         todoRepository.save(todo);
     }
 
