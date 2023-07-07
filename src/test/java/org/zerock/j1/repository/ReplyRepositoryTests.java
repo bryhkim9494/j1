@@ -9,6 +9,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.zerock.j1.domain.Board;
 import org.zerock.j1.domain.Reply;
+import org.zerock.j1.dto.ReplyPageRequestDTO;
+import org.zerock.j1.service.ReplyService;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -18,6 +20,9 @@ public class ReplyRepositoryTests {
 
     @Autowired
     private ReplyRepository replyRepository;
+    
+    @Autowired
+    private ReplyService replyService;
 
     @Test
     public void insertOne() {
@@ -35,7 +40,7 @@ public class ReplyRepositoryTests {
         for (Long bno : bnoArr) { // 배열이니까 loop돌려야됨
             Board board = Board.builder().bno(bno).build();
 
-            for (int i = 0; i < 5; i++) {
+            for (int i = 0; i < 50; i++) {
                 Reply reply = Reply.builder().replyText("Reply..." + bno + ".." + i).replyer("replyer" + i).board(board)
                         .build();
 
@@ -53,4 +58,18 @@ public class ReplyRepositoryTests {
         Page<Reply> result = replyRepository.listBoard(bno, pageable);
         result.get().forEach(r -> log.info(r));
     }
+
+    @Test
+    public void testCount() {
+        Long bno = 99L;
+        long count = replyRepository.getCountBoard(bno);
+        log.info("count: " + count);
+    }
+
+    @Test
+    public void testListLast() {
+        ReplyPageRequestDTO requestDTO = ReplyPageRequestDTO.builder().bno(99L).last(true).build();
+        log.info(replyService.list(requestDTO));
+    }
+
 }
