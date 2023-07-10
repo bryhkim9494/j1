@@ -71,7 +71,10 @@ sourceSets {
     }
 }
 
+task deleteBuild(type: Delete) {
+	delete "$projectDir/bin/generated.sources/annotations/"
+}
 
 
-// compileJava.dependsOn('clean') // 스프링부트 2버전에서는 사용불가
+compileJava.dependsOn('deleteBuild','clean') // 스프링부트 2버전에서는 사용불가
 // complieTestJava.dependsOn('clean')
