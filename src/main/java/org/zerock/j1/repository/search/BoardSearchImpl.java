@@ -25,8 +25,8 @@ import lombok.extern.log4j.Log4j2;
 public class BoardSearchImpl extends QuerydslRepositorySupport implements BoardSearch {
 
     public BoardSearchImpl() {
-        super(Board.class); // super안에 도메인 클래스
-
+        super(Board.class); // Board 클래스를 상속받는 QuerydslRepositorySupport를 생성하는 생성자입니다.
+                            // super안에 도메인 클래스
     }
 
     @Override
