@@ -15,6 +15,7 @@ public class PageResponseDTO<E> {   // 페이지 응답 정보를 담는 DTO 클
     private PageRequestDTO requestDTO;   // 페이지 요청 정보를 저장하는 필드입니다.
     private int page, size, start, end;   // 페이지 정보 및 범위를 저장하는 필드입니다.
 
+
     public PageResponseDTO(List<E> dtoList, long totalCount, PageRequestDTO pageRequestDTO) {
         this.dtoList = dtoList;   // DTO 목록을 초기화합니다.
         this.totalCount = totalCount;   // 전체 게시글 수를 초기화합니다.

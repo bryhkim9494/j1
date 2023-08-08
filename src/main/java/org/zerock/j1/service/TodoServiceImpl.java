@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.zerock.j1.domain.Todo;
+import org.zerock.j1.dto.PageRequestDTO;
 import org.zerock.j1.dto.PageResponseDTO;
 import org.zerock.j1.dto.TodoDTO;
 import org.zerock.j1.repository.TodoRepository;
@@ -27,21 +28,30 @@ public class TodoServiceImpl implements TodoService {
 
     private final ModelMapper modelMapper;
 
+    // Todo목록을 조회하여 PageResponseDTO로 반환하는 메소드
     @Override
     public PageResponseDTO<TodoDTO> getList() {
 
+        // 페이징 처리를 위한 Pageable 객체 생성
         Pageable pageable = PageRequest.of(0, 20, Sort.by("tno").descending());
 
+        // TodoRepository를 활용하여 페이징 처리된 Todo목록 조회
         Page<Todo> result = todoRepository.findAll(pageable);
 
+        // 조회 결과로부터 Todo엔티티 리스트를 TodoDTO 리스트로 변환하여 반환
         List<TodoDTO> dtoList = result.getContent().stream().map(todo -> modelMapper.map(todo, TodoDTO.class))
                 .collect(Collectors.toList());
         // 위에 코드를 해석하면 todo를 dto로 바꾼다음에 list로 만들라는 코드임
 
-        // PageResponseDTO<TodoDTO> response = new PageResponseDTO<>();
-        // response.setDtoList(dtoList);
-        // return response;
-        return null;
+//         PageResponseDTO<TodoDTO> response = new PageResponseDTO<>();
+//         response.setDtoList(dtoList);
+//         return response;
+
+        PageResponseDTO<TodoDTO> response = new PageResponseDTO<>(dtoList, result.getTotalElements(), new PageRequestDTO(1, 20));
+        response.setDtoList(dtoList);
+        return response;
+
+//        return null;
     }
 
     @Override
@@ -69,6 +79,7 @@ public class TodoServiceImpl implements TodoService {
 
     @Override
     public void modify(TodoDTO dto) {
+
         Optional<Todo> result = todoRepository.findById(dto.getTno());
 
         Todo todo = result.orElseThrow();
