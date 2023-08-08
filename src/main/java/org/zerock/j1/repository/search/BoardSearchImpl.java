@@ -26,13 +26,15 @@ public class BoardSearchImpl extends QuerydslRepositorySupport implements BoardS
 
     public BoardSearchImpl() {
         super(Board.class); // Board 클래스를 상속받는 QuerydslRepositorySupport를 생성하는 생성자입니다.
-                            // super안에 도메인 클래스
+        // super안에 도메인 클래스
     }
 
+    // 버전1
     @Override
-    public Page<Board> search1(String searchType, String keyword, Pageable pageable) { // 2 메소드추가
+    public Page<Board> search1(String searchType, String keyword, Pageable pageable) { // 2. 메소드추가
 
         QBoard board = QBoard.board; // QBoard가 있는 상태에서 코딩해야함
+        // QBoard 클래스의 인스턴스를 생성하여 board 변수에 할당합니다.
 
         JPQLQuery<Board> query = from(board); // sql 문을 객채화시킨거라고 생각하면됨
 
@@ -54,7 +56,7 @@ public class BoardSearchImpl extends QuerydslRepositorySupport implements BoardS
 
             query.where(searchBuilder);
 
-        } // querydsl 목표는 자바로 동적쿼리를 만드는것
+        } // Querydsl의 목표는 자바로 동적 쿼리를 생성하는 것임
 
         this.getQuerydsl().applyPagination(pageable, query);
 
@@ -68,6 +70,7 @@ public class BoardSearchImpl extends QuerydslRepositorySupport implements BoardS
         return new PageImpl<>(list, pageable, count);
     }
 
+    // 버전2
     @Override
     public Page<Object[]> searchWithRcnt(String searchType, String keyword, Pageable pageable) {
         QBoard board = QBoard.board;
@@ -112,6 +115,7 @@ public class BoardSearchImpl extends QuerydslRepositorySupport implements BoardS
         return new PageImpl<>(arrList, pageable, count);
     }
 
+    // 버전3
     @Override
     public PageResponseDTO<BoardListRcntDTO> searchDTORcnt(PageRequestDTO requestDTO) {
         Pageable pageable = makePageable(requestDTO);
